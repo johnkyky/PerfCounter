@@ -1,22 +1,22 @@
 @PACKAGE_INIT@
 
-include("${CMAKE_CURRENT_LIST_DIR}/MathFunctionsTargets.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/PerfCounterTargets.cmake")
 
-check_required_components(MathFunctions)
+check_required_components(PerfCounter)
 
 set(version 3.4.1)
 
-set_property(TARGET MathFunctions PROPERTY VERSION ${version})
-set_property(TARGET MathFunctions PROPERTY SOVERSION 3)
-set_property(TARGET MathFunctions PROPERTY
-  INTERFACE_MathFunctions_MAJOR_VERSION 3)
-set_property(TARGET MathFunctions APPEND PROPERTY
-  COMPATIBLE_INTERFACE_STRING MathFunctions_MAJOR_VERSION
+set_property(TARGET PerfCounter PROPERTY VERSION ${version})
+set_property(TARGET PerfCounter PROPERTY SOVERSION 3)
+set_property(TARGET PerfCounter PROPERTY
+  INTERFACE_PerfCounter_MAJOR_VERSION 3)
+set_property(TARGET PerfCounter APPEND PROPERTY
+  COMPATIBLE_INTERFACE_STRING PerfCounter_MAJOR_VERSION
 )
 
 # generate the version file for the config file
 write_basic_package_version_file(
-  "${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsConfigVersion.cmake"
+  "${CMAKE_CURRENT_BINARY_DIR}/PerfCounterConfigVersion.cmake"
   VERSION "${version}"
   COMPATIBILITY AnyNewerVersion
 )

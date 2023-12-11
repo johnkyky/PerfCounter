@@ -7,16 +7,16 @@ include(CMakePackageConfigHelpers)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-add_library(perf STATIC
+add_library(PerfCounter STATIC
             perf.cpp perf.h
 )
-target_include_directories(perf PUBLIC
+target_include_directories(PerfCounter PUBLIC
                            "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
                            "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
 )
 
-install(TARGETS perf
-        EXPORT MyLibTargets
+install(TARGETS PerfCounter
+        EXPORT PerfCounterTargets
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
@@ -25,24 +25,24 @@ install(TARGETS perf
 
 install(FILES perf.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-install(EXPORT MyLibTargets
-        FILE MyLibTargets.cmake
-        NAMESPACE MathFunctions::
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/MathFunctions
+install(EXPORT PerfCounterTargets
+        FILE PerfCounterTargets.cmake
+        NAMESPACE Perf::
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/PerfCounter
 )
 
 configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
-                              "${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsConfig.cmake"
-                              INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/MathFunctions
+                              "${CMAKE_CURRENT_BINARY_DIR}/PerfCounterConfig.cmake"
+                              INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/PerfCounter
 )
 
 install(FILES
-        "${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsConfig.cmake"
-        "${CMAKE_CURRENT_BINARY_DIR}/MathFunctionsConfigVersion.cmake"
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/MathFunctions
+        "${CMAKE_CURRENT_BINARY_DIR}/PerfCounterConfig.cmake"
+        "${CMAKE_CURRENT_BINARY_DIR}/PerfCounterConfigVersion.cmake"
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/PerfCounter
 )
 
-export(EXPORT MyLibTargets
-       FILE "${CMAKE_CURRENT_BINARY_DIR}/cmake/MathFunctionsTargets.cmake"
-       NAMESPACE MathFunctions::
+export(EXPORT PerfCounterTargets
+       FILE "${CMAKE_CURRENT_BINARY_DIR}/cmake/PerfCounterTargets.cmake"
+       NAMESPACE Perf::
 )
