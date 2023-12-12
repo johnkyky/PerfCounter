@@ -15,13 +15,21 @@ int perf_event_open(struct perf_event_attr *hw, pid_t pid, int cpu, int grp,
 
 class PerfData {
 public:
-  enum EVENT_TYPE {
+  enum HARDWARE_EVENT_TYPE {
     NB_CYCLES = PERF_COUNT_HW_CPU_CYCLES,
     NB_INSTRUCTIONS = PERF_COUNT_HW_INSTRUCTIONS,
     CACHE_REFERENCES = PERF_COUNT_HW_CACHE_REFERENCES,
     CACHE_MISSES = PERF_COUNT_HW_CACHE_MISSES,
     BRANCH_INSTRUCTIONS = PERF_COUNT_HW_BRANCH_INSTRUCTIONS,
     BRANCH_MISSES = PERF_COUNT_HW_BRANCH_MISSES
+  };
+
+  enum SOFTWARE_EVENT_TYPE {
+    CPU_CLOCK = PERF_COUNT_SW_CPU_CLOCK,
+    TASK_CLOCK = PERF_COUNT_SW_TASK_CLOCK,
+    PAGE_FAULTS = PERF_COUNT_SW_PAGE_FAULTS,
+    CONTEXT_SWITCHES = PERF_COUNT_SW_CONTEXT_SWITCHES,
+    CPU_MIGRATIONS = PERF_COUNT_SW_CPU_MIGRATIONS,
   };
 
 private:
@@ -55,10 +63,17 @@ public:
     this->attr.disabled = disabled;
   }
 
-  PerfData(const PerfData::EVENT_TYPE type) : counting(false) {
+  PerfData(const PerfData::HARDWARE_EVENT_TYPE type) : counting(false) {
     std::memset(&this->attr, 0, sizeof(struct perf_event_attr));
     /* this->attr.type = PERF_TYPE_SOFTWARE; */
     this->attr.type = PERF_TYPE_HARDWARE;
+    this->attr.config = type;
+    this->attr.disabled = 0;
+  }
+
+  PerfData(const PerfData::SOFTWARE_EVENT_TYPE type) : counting(false) {
+    std::memset(&this->attr, 0, sizeof(struct perf_event_attr));
+    this->attr.type = PERF_TYPE_SOFTWARE;
     this->attr.config = type;
     this->attr.disabled = 0;
   }
