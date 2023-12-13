@@ -9,10 +9,6 @@
 
 namespace perf {
 
-// perf counter syscall
-int perf_event_open(struct perf_event_attr *hw, pid_t pid, int cpu, int grp,
-                    unsigned long flags);
-
 enum HARDWARE_EVENT_TYPE {
   NB_CYCLES = PERF_COUNT_HW_CPU_CYCLES,
   NB_INSTRUCTIONS = PERF_COUNT_HW_INSTRUCTIONS,

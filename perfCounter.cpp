@@ -4,12 +4,6 @@
 #include <stdexcept>
 using namespace perf;
 
-// perf counter syscall
-int perf_event_open(struct perf_event_attr *hw, pid_t pid, int cpu, int grp,
-                    unsigned long flags) {
-  return syscall(__NR_perf_event_open, hw, pid, cpu, grp, flags);
-}
-
 PerfCounter::PerfCounter(const struct perf_event_attr &attr) : counting(false) {
   std::memset(&this->attr, 0, sizeof(struct perf_event_attr));
   this->attr.type = attr.type;
