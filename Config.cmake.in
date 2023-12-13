@@ -4,7 +4,7 @@ include("${CMAKE_CURRENT_LIST_DIR}/PerfCounterTargets.cmake")
 
 check_required_components(PerfCounter)
 
-set(version 3.4.1)
+set(version 0.0.1)
 
 set_property(TARGET PerfCounter PROPERTY VERSION ${version})
 set_property(TARGET PerfCounter PROPERTY SOVERSION 3)
