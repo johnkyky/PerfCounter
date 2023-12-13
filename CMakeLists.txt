@@ -31,18 +31,18 @@ install(FILES perfCounters.h perfCounter.h DESTINATION ${CMAKE_INSTALL_INCLUDEDI
 install(EXPORT aPerfCounterTargets
         FILE aPerfCounterTargets.cmake
         NAMESPACE Perf::
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/PerfCounters
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/foo
 )
 
 configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
                               "${CMAKE_CURRENT_BINARY_DIR}/PerfCountersConfig.cmake"
-                              INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/PerfCounters
+                              INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/foo
 )
 
 install(FILES
         "${CMAKE_CURRENT_BINARY_DIR}/PerfCountersConfig.cmake"
         "${CMAKE_CURRENT_BINARY_DIR}/PerfCountersConfigVersion.cmake"
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/PerfCounters
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/foo
 )
 
 export(EXPORT aPerfCounterTargets
