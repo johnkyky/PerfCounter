@@ -11,6 +11,7 @@ add_library(foo STATIC
             perfCounters.cpp perfCounters.h
             perfCounter.cpp perfCounter.h
 )
+include_directories($(FOO_SOURCE_DIR))
 target_include_directories(foo PUBLIC
                            "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
                            "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
