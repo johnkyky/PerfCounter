@@ -24,9 +24,9 @@ install(TARGETS PerfCounter
         INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
 
-# install(FILES perfCounters.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(FILES perfCounters.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 # install(FILES perfCounter.h perfCounters.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-install(FILES perfCounter.h perfCounter.cpp perfCounters.h perfCounters.cpp DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+# install(FILES perfCounter.h perfCounter.cpp perfCounters.h perfCounters.cpp DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 install(EXPORT PerfCounterTargets
         FILE PerfCounterTargets.cmake
