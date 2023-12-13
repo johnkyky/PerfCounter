@@ -7,9 +7,9 @@ include(CMakePackageConfigHelpers)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-add_library(libb SHARED
-            perfCounters.cpp perfCounters.h
-            # perfCounter.cpp perfCounter.h
+add_library(libb STATIC
+            # perfCounters.cpp perfCounters.h
+            perfCounter.cpp perfCounter.h
 )
 target_include_directories(libb PUBLIC
                            "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
