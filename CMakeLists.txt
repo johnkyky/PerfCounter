@@ -17,7 +17,7 @@ add_library(foo STATIC
 # )
 
 install(TARGETS foo
-        EXPORT PerfCounterTargets
+        EXPORT aPerfCounterTargets
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
@@ -28,8 +28,8 @@ install(FILES perfCounters.h perfCounter.h DESTINATION ${CMAKE_INSTALL_INCLUDEDI
 # install(FILES perfCounter.h perfCounters.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 # install(FILES perfCounter.h perfCounter.cpp perfCounters.h perfCounters.cpp DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-install(EXPORT PerfCounterTargets
-        FILE PerfCounterTargets.cmake
+install(EXPORT aPerfCounterTargets
+        FILE aPerfCounterTargets.cmake
         NAMESPACE Perf::
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/PerfCounters
 )
@@ -45,7 +45,7 @@ install(FILES
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/PerfCounters
 )
 
-export(EXPORT PerfCounterTargets
+export(EXPORT aPerfCounterTargets
        FILE "${CMAKE_CURRENT_BINARY_DIR}/cmake/PerfCountersTargets.cmake"
        NAMESPACE Perf::
 )
