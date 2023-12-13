@@ -6,7 +6,7 @@ namespace {
 
 void openCounters() {
   for (auto &counter : counters) {
-    counter.open();
+    /* counter.open(); */
   }
 }
 
@@ -95,17 +95,17 @@ void initalize(const std::initializer_list<HARDWARE_EVENT_TYPE> &hw_events,
 
 void begin() {
   for (auto &counter : counters) {
-    counter.start();
+    /* counter.start(); */
   }
 }
 
 std::vector<uint64_t> end() {
   std::vector<uint64_t> res(counters.size());
   for (uint64_t i = 0; i < counters.size(); ++i) {
-    res[i] = counters[i].getValue();
-    counters[i].stop();
+    /* res[i] = counters[i].getValue(); */
+    /* counters[i].stop(); */
   }
   return res;
 }
 
-void finalize() { counters.clear(); }
+void finalize() { /* counters.clear();  */ }

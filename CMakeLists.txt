@@ -9,7 +9,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_library(PerfCounter STATIC
             perfCounters.cpp perfCounters.h
-            perfCounter.cpp perfCounter.h
+            # perfCounter.cpp perfCounter.h
 )
 target_include_directories(PerfCounter PUBLIC
                            "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
