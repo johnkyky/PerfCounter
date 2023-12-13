@@ -6,18 +6,17 @@ include(CMakePackageConfigHelpers)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-set(CMAKE_FIND_DEBUG_MODE True)
 
-add_library(PerfCounters SHARED
+add_library(foo STATIC
             perfCounters.cpp perfCounters.h
-            # perfCounter.cpp perfCounter.h
+            perfCounter.cpp perfCounter.h
 )
-target_include_directories(PerfCounters PUBLIC
+target_include_directories(foo PUBLIC
                            "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
                            "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
 )
 
-install(TARGETS PerfCounters
+install(TARGETS foo
         EXPORT PerfCounterTargets
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
@@ -25,7 +24,7 @@ install(TARGETS PerfCounters
         INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
 
-install(FILES perfCounters.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(FILES perfCounter.h perfCounters.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 # install(FILES perfCounter.h perfCounters.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 # install(FILES perfCounter.h perfCounter.cpp perfCounters.h perfCounters.cpp DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
