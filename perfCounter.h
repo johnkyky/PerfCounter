@@ -1,10 +1,8 @@
 #pragma once
 
 #include <cstdint>
-#include <cstring>
 #include <linux/perf_event.h>
 #include <linux/unistd.h>
-#include <stdexcept>
 #include <stdint.h>
 #include <syscall.h>
 #include <unistd.h>
@@ -45,79 +43,29 @@ private:
 public:
   PerfCounter() = delete;
 
-  PerfCounter(const struct perf_event_attr &attr) : counting(false) {
-    std::memset(&this->attr, 0, sizeof(struct perf_event_attr));
-    this->attr.type = attr.type;
-    this->attr.config = attr.config;
-    this->attr.disabled = attr.disabled;
-  }
+  PerfCounter(const struct perf_event_attr &attr);
 
-  PerfCounter(const struct perf_event_attr &&attr) : counting(false) {
-    this->attr = std::move(attr);
-  }
+  PerfCounter(const struct perf_event_attr &&attr);
 
   PerfCounter(const unsigned int type, const unsigned long long config,
-              const unsigned long long disabled)
-      : counting(false) {
-    std::memset(&this->attr, 0, sizeof(struct perf_event_attr));
-    this->attr.type = type;
-    this->attr.config = config;
-    this->attr.disabled = disabled;
-  }
+              const unsigned long long disabled);
 
-  PerfCounter(const HARDWARE_EVENT_TYPE type) : counting(false) {
-    std::memset(&this->attr, 0, sizeof(struct perf_event_attr));
-    this->attr.type = PERF_TYPE_HARDWARE;
-    this->attr.config = type;
-    this->attr.disabled = 0;
-  }
+  PerfCounter(const HARDWARE_EVENT_TYPE type);
 
-  PerfCounter(const SOFTWARE_EVENT_TYPE type) : counting(false) {
-    std::memset(&this->attr, 0, sizeof(struct perf_event_attr));
-    this->attr.type = PERF_TYPE_SOFTWARE;
-    this->attr.config = type;
-    this->attr.disabled = 0;
-  }
+  PerfCounter(const SOFTWARE_EVENT_TYPE type);
 
-  ~PerfCounter() {
-    if (fd) {
-      close(fd);
-    }
-  }
+  ~PerfCounter();
 
   void open(const pid_t pid, const int cpu, const int grp,
             const unsigned long flags);
 
   void open();
 
-  void start() {
-    counting = true;
-    asm volatile("nop;"); // pseudo-barrier
-    rc = read(fd, &val_begin, sizeof(val_begin));
-    asm volatile("nop;"); // pseudo-barrier
-    if (rc == -1)
-      throw std::runtime_error("Error: PerfData::start -> read counter error");
-  }
+  void start();
 
-  void stop() {
-    /* if (not counting) */
-    /*   throw std::runtime_error("Error: PerfData::end -> counter isn't
-     * started"); */
-    counting = false;
-  }
+  void stop();
 
-  uint64_t getValue() {
-    if (not counting)
-      throw std::runtime_error(
-          "Error: PerfData::getValue -> counter isn't started");
-    asm volatile("nop;"); // pseudo-barrier
-    rc = read(fd, &val_end, sizeof(val_end));
-    asm volatile("nop;"); // pseudo-barrier
-    if (rc == -1)
-      throw std::runtime_error("Error: PerfData::start -> read counter error");
-
-    return val_end - val_begin;
-  }
+  uint64_t getValue();
 };
 
 } // namespace perf
