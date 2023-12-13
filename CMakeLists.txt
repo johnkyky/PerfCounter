@@ -7,17 +7,17 @@ include(CMakePackageConfigHelpers)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-add_library(libb STATIC
-            # perfCounters.cpp perfCounters.h
-            perfCounter.cpp perfCounter.h
+add_library(PerfCounters SHARED
+            perfCounters.cpp perfCounters.h
+            # perfCounter.cpp perfCounter.h
 )
-target_include_directories(libb PUBLIC
+target_include_directories(PerfCounters PUBLIC
                            "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
                            "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
 )
 
-install(TARGETS libb
-        EXPORT libbTargets
+install(TARGETS PerfCounters
+        EXPORT PerfCounterTargets
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
@@ -28,24 +28,24 @@ install(FILES perfCounters.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 # install(FILES perfCounter.h perfCounters.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 # install(FILES perfCounter.h perfCounter.cpp perfCounters.h perfCounters.cpp DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-install(EXPORT libbTargets
-        FILE libbTargets.cmake
+install(EXPORT PerfCounterTargets
+        FILE PerfCounterTargets.cmake
         NAMESPACE Perf::
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/libb
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/PerfCounters
 )
 
 configure_package_config_file(${CMAKE_CURRENT_SOURCE_DIR}/Config.cmake.in
-                              "${CMAKE_CURRENT_BINARY_DIR}/libbConfig.cmake"
-                              INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/libb
+                              "${CMAKE_CURRENT_BINARY_DIR}/PerfCountersConfig.cmake"
+                              INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/PerfCounters
 )
 
 install(FILES
-        "${CMAKE_CURRENT_BINARY_DIR}/libbConfig.cmake"
-        "${CMAKE_CURRENT_BINARY_DIR}/libbConfigVersion.cmake"
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/libb
+        "${CMAKE_CURRENT_BINARY_DIR}/PerfCountersConfig.cmake"
+        "${CMAKE_CURRENT_BINARY_DIR}/PerfCountersConfigVersion.cmake"
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/PerfCounters
 )
 
-export(EXPORT libbTargets
-       FILE "${CMAKE_CURRENT_BINARY_DIR}/cmake/libbTargets.cmake"
+export(EXPORT PerfCounterTargets
+       FILE "${CMAKE_CURRENT_BINARY_DIR}/cmake/PerfCountersTargets.cmake"
        NAMESPACE Perf::
 )

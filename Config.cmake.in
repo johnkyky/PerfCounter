@@ -1,22 +1,22 @@
 @PACKAGE_INIT@
 
-include("${CMAKE_CURRENT_LIST_DIR}/libbTargets.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/PerfCountersTargets.cmake")
 
-check_required_components(libb)
+check_required_components(PerfCounter)
 
 set(version 0.0.1)
 
-set_property(TARGET libb PROPERTY VERSION ${version})
-set_property(TARGET libb PROPERTY SOVERSION 3)
-set_property(TARGET libb PROPERTY
-  INTERFACE_libb_MAJOR_VERSION 3)
-set_property(TARGET libb APPEND PROPERTY
-  COMPATIBLE_INTERFACE_STRING libb_MAJOR_VERSION
+set_property(TARGET PerfCounters PROPERTY VERSION ${version})
+set_property(TARGET PerfCounters PROPERTY SOVERSION 3)
+set_property(TARGET PerfCounters PROPERTY
+  INTERFACE_PerfCounters_MAJOR_VERSION 3)
+set_property(TARGET PerfCounters APPEND PROPERTY
+  COMPATIBLE_INTERFACE_STRING PerfCounters_MAJOR_VERSION
 )
 
 # generate the version file for the config file
 write_basic_package_version_file(
-  "${CMAKE_CURRENT_BINARY_DIR}/libbConfigVersion.cmake"
+  "${CMAKE_CURRENT_BINARY_DIR}/PerfCountersConfigVersion.cmake"
   VERSION "${version}"
   COMPATIBILITY AnyNewerVersion
 )
