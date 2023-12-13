@@ -1,4 +1,4 @@
-#include "perfCounters.h"
+#include "include/perfCounters.h"
 
 using namespace perf;
 
@@ -108,4 +108,5 @@ std::vector<uint64_t> end() {
   return res;
 }
 
-void finalize() { /* counters.clear();  */ }
+void finalize() { /* counters.clear();  */
+}

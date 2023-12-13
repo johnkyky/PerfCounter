@@ -11,7 +11,7 @@ set(Headers
   perfCounters.h
 )
 
-add_library(MyProject ${Sources})
+add_library(MyProject STATIC ${Sources})
 target_include_directories(MyProject INTERFACE $<INSTALL_INTERFACE:include>) # or whatever the include directory is
 
 # install header
