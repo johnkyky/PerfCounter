@@ -1,6 +1,6 @@
 #pragma once
 
-#include "perfCounter.h"
+#include "perfCounter_LAPI.hpp"
 #include <cstdint>
 #include <initializer_list>
 #include <vector>

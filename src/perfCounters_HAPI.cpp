@@ -1,4 +1,4 @@
-#include "perfCounters.h"
+#include "perfCounters_HAPI.hpp"
 
 using namespace perf;
 

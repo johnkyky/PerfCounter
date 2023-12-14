@@ -1,4 +1,4 @@
-#include "perfCounter.h"
+#include "perfCounter_LAPI.hpp"
 
 #include <cstring>
 #include <stdexcept>
