@@ -6,21 +6,12 @@
 #include <vector>
 
 namespace perf {
-/* namespace { */
 
-class HandlerPerfCounter {
-public:
-  HandlerPerfCounter() = default;
-  HandlerPerfCounter(const HandlerPerfCounter &) = delete;
-  HandlerPerfCounter &operator=(const HandlerPerfCounter &) = delete;
-
-private:
-  std::vector<PerfCounter> counters;
-};
-
-/* } // namespace */
+namespace {
 
 static std::vector<PerfCounter> counters;
+
+}
 
 void initalize();
 void initalize(const std::vector<HARDWARE_EVENT_TYPE> &hw_events);
