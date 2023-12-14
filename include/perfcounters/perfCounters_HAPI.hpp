@@ -11,7 +11,6 @@ namespace perf {
 
 namespace {
 
-/* static std::vector<PerfCounter> counters; */
 static std::unordered_map<std::string, PerfCounter> counters;
 
 } // namespace
