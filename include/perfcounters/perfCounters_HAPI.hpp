@@ -6,7 +6,7 @@
 #include <vector>
 
 namespace perf {
-namespace {
+/* namespace { */
 
 class HandlerPerfCounter {
 public:
@@ -18,7 +18,7 @@ private:
   std::vector<PerfCounter> counters;
 };
 
-} // namespace
+/* } // namespace */
 
 static std::vector<PerfCounter> counters;
 
