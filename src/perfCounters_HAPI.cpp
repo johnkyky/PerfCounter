@@ -4,7 +4,7 @@ namespace {
 
 void openCounters() {
   for (auto &counter : perf::counters) {
-    /* counter.open(); */
+    counter.open();
   }
 }
 
@@ -96,15 +96,15 @@ void perf::initalize(
 
 void perf::begin() {
   for (auto &counter : counters) {
-    /* counter.start(); */
+    counter.start();
   }
 }
 
 std::vector<uint64_t> perf::end() {
   std::vector<uint64_t> res(counters.size());
   for (uint64_t i = 0; i < counters.size(); ++i) {
-    /* res[i] = counters[i].getValue(); */
-    /* counters[i].stop(); */
+    res[i] = counters[i].getValue();
+    counters[i].stop();
   }
   return res;
 }
