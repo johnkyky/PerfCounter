@@ -9,7 +9,7 @@ namespace perf {
 
 namespace {
 
-std::vector<PerfCounter> counters;
+static std::vector<PerfCounter> counters;
 
 }
 
