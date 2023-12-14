@@ -1,18 +1,16 @@
 #include "perfCounters_HAPI.hpp"
 
-using namespace perf;
-
 namespace {
 
 void openCounters() {
-  for (auto &counter : counters) {
+  for (auto &counter : perf::counters) {
     /* counter.open(); */
   }
 }
 
 } // namespace
 
-void initalize() {
+void perf::initalize() {
   if (not counters.empty()) {
     return;
   }
@@ -21,7 +19,7 @@ void initalize() {
   openCounters();
 }
 
-void initalize(const std::vector<HARDWARE_EVENT_TYPE> &hw_events) {
+void perf::initalize(const std::vector<HARDWARE_EVENT_TYPE> &hw_events) {
   if (not counters.empty()) {
     return;
   }
@@ -32,7 +30,7 @@ void initalize(const std::vector<HARDWARE_EVENT_TYPE> &hw_events) {
   openCounters();
 }
 
-void initalize(const std::vector<SOFTWARE_EVENT_TYPE> &sw_events) {
+void perf::initalize(const std::vector<SOFTWARE_EVENT_TYPE> &sw_events) {
   if (not counters.empty()) {
     return;
   }
@@ -43,8 +41,8 @@ void initalize(const std::vector<SOFTWARE_EVENT_TYPE> &sw_events) {
   openCounters();
 }
 
-void initalize(const std::vector<HARDWARE_EVENT_TYPE> &hw_events,
-               const std::vector<SOFTWARE_EVENT_TYPE> &sw_events) {
+void perf::initalize(const std::vector<HARDWARE_EVENT_TYPE> &hw_events,
+                     const std::vector<SOFTWARE_EVENT_TYPE> &sw_events) {
   if (not counters.empty()) {
     return;
   }
@@ -58,7 +56,8 @@ void initalize(const std::vector<HARDWARE_EVENT_TYPE> &hw_events,
   openCounters();
 }
 
-void initalize(const std::initializer_list<HARDWARE_EVENT_TYPE> &hw_events) {
+void perf::initalize(
+    const std::initializer_list<HARDWARE_EVENT_TYPE> &hw_events) {
   if (not counters.empty()) {
     return;
   }
@@ -69,7 +68,8 @@ void initalize(const std::initializer_list<HARDWARE_EVENT_TYPE> &hw_events) {
   openCounters();
 }
 
-void initalize(const std::initializer_list<SOFTWARE_EVENT_TYPE> &sw_events) {
+void perf::initalize(
+    const std::initializer_list<SOFTWARE_EVENT_TYPE> &sw_events) {
   if (not counters.empty()) {
     return;
   }
@@ -79,8 +79,9 @@ void initalize(const std::initializer_list<SOFTWARE_EVENT_TYPE> &sw_events) {
   openCounters();
 }
 
-void initalize(const std::initializer_list<HARDWARE_EVENT_TYPE> &hw_events,
-               const std::initializer_list<SOFTWARE_EVENT_TYPE> &sw_events) {
+void perf::initalize(
+    const std::initializer_list<HARDWARE_EVENT_TYPE> &hw_events,
+    const std::initializer_list<SOFTWARE_EVENT_TYPE> &sw_events) {
   if (not counters.empty()) {
     return;
   }
@@ -93,13 +94,13 @@ void initalize(const std::initializer_list<HARDWARE_EVENT_TYPE> &hw_events,
   openCounters();
 }
 
-void begin() {
+void perf::begin() {
   for (auto &counter : counters) {
     /* counter.start(); */
   }
 }
 
-std::vector<uint64_t> end() {
+std::vector<uint64_t> perf::end() {
   std::vector<uint64_t> res(counters.size());
   for (uint64_t i = 0; i < counters.size(); ++i) {
     /* res[i] = counters[i].getValue(); */
@@ -108,5 +109,4 @@ std::vector<uint64_t> end() {
   return res;
 }
 
-void finalize() { /* counters.clear();  */
-}
+void perf::finalize() { counters.clear(); }
