@@ -52,7 +52,7 @@ void PerfCounter::open(const pid_t pid, const int cpu, const int grp,
   fd = syscall(__NR_perf_event_open, &attr, pid, cpu, grp, flags);
   asm volatile("nop;"); // pseudo-barrier
   if (fd < 0)
-    throw std::runtime_error("Error: Open PerfData::open");
+    throw std::runtime_error("Error: PerfData::open -> open counter error");
 }
 
 void PerfCounter::open() { this->open(getpid(), -1, -1, 0); }
