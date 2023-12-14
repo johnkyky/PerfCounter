@@ -57,10 +57,27 @@ void perf::initalize() {
   openCounters();
 }
 
+void perf::initalize(const HARDWARE_EVENT_TYPE hw_events) {
+  if (not counters.empty()) {
+    return;
+  }
+  counters.emplace(eventToString(hw_events), hw_events);
+  openCounters();
+}
+
+void perf::initalize(const SOFTWARE_EVENT_TYPE sw_events) {
+  if (not counters.empty()) {
+    return;
+  }
+  counters.emplace(eventToString(sw_events), sw_events);
+  openCounters();
+}
+
 void perf::initalize(const std::vector<HARDWARE_EVENT_TYPE> &hw_events) {
   if (not counters.empty()) {
     return;
   }
+
   counters.reserve(hw_events.size());
   for (const auto &event : hw_events) {
     counters.emplace(eventToString(event), event);
@@ -72,6 +89,7 @@ void perf::initalize(const std::vector<SOFTWARE_EVENT_TYPE> &sw_events) {
   if (not counters.empty()) {
     return;
   }
+
   counters.reserve(sw_events.size());
   for (const auto &event : sw_events) {
     counters.emplace(eventToString(event), event);
@@ -84,6 +102,7 @@ void perf::initalize(const std::vector<HARDWARE_EVENT_TYPE> &hw_events,
   if (not counters.empty()) {
     return;
   }
+
   counters.reserve(hw_events.size() + sw_events.size());
   for (const auto &event : hw_events) {
     counters.emplace(eventToString(event), event);
@@ -99,6 +118,7 @@ void perf::initalize(
   if (not counters.empty()) {
     return;
   }
+
   counters.reserve(hw_events.size());
   for (const auto &event : hw_events) {
     counters.emplace(eventToString(event), event);
@@ -111,6 +131,7 @@ void perf::initalize(
   if (not counters.empty()) {
     return;
   }
+
   for (const auto &event : sw_events) {
     counters.emplace(eventToString(event), event);
   }
@@ -123,6 +144,7 @@ void perf::initalize(
   if (not counters.empty()) {
     return;
   }
+
   for (const auto &event : hw_events) {
     counters.emplace(eventToString(event), event);
   }
@@ -139,19 +161,41 @@ void perf::begin() {
 }
 
 void perf::begin(const std::string &str_counter) {
+  if (counters.find(str_counter) == counters.end()) {
+    throw std::runtime_error("Error: begin -> counter '" + str_counter +
+                             "' not initialized");
+  }
+
   counters.at(str_counter).start();
 }
 
 void perf::begin(const perf::HARDWARE_EVENT_TYPE hw_event) {
-  counters.at(eventToString(hw_event)).start();
+  const auto str_counter = eventToString(hw_event);
+  if (counters.find(str_counter) == counters.end()) {
+    throw std::runtime_error("Error: begin -> counter '" + str_counter +
+                             "' not initialized");
+  }
+
+  counters.at(str_counter).start();
 }
 
 void perf::begin(const perf::SOFTWARE_EVENT_TYPE sw_event) {
+  const auto str_counter = eventToString(sw_event);
+  if (counters.find(str_counter) == counters.end()) {
+    throw std::runtime_error("Error: begin -> counter '" + str_counter +
+                             "'not initialized");
+  }
+
   counters.at(eventToString(sw_event)).start();
 }
 
 void perf::begin(const std::vector<std::string> &str_counters) {
   for (const auto str_counter : str_counters) {
+    if (counters.find(str_counter) == counters.end()) {
+      throw std::runtime_error("Error: begin -> counter '" + str_counter +
+                               "' not initialized");
+    }
+
     counters.at(str_counter).start();
   }
 }
@@ -165,21 +209,41 @@ std::unordered_map<std::string, uint64_t> perf::end() {
 }
 
 uint64_t perf::end(const std::string &str_counter) {
+  if (counters.find(str_counter) == counters.end()) {
+    throw std::runtime_error("Error: end -> counter '" + str_counter +
+                             "' not initialized");
+  }
   return counters.at(str_counter).getValue();
 }
 
 uint64_t perf::end(const perf::HARDWARE_EVENT_TYPE hw_event) {
-  return counters.at(eventToString(hw_event)).getValue();
+  const auto str_counter = eventToString(hw_event);
+  if (counters.find(str_counter) == counters.end()) {
+    throw std::runtime_error("Error: end -> counter '" + str_counter +
+                             "' not initialized");
+  }
+
+  return counters.at(str_counter).getValue();
 }
 
 uint64_t perf::end(const perf::SOFTWARE_EVENT_TYPE sw_event) {
-  return counters.at(eventToString(sw_event)).getValue();
+  const auto str_counter = eventToString(sw_event);
+  if (counters.find(str_counter) == counters.end()) {
+    throw std::runtime_error("Error: end -> counter '" + str_counter +
+                             "' not initialized");
+  }
+
+  return counters.at(str_counter).getValue();
 }
 
 std::unordered_map<std::string, uint64_t>
 perf::end(const std::vector<std::string> &str_counters) {
   std::unordered_map<std::string, uint64_t> res(str_counters.size());
   for (const auto str_counter : str_counters) {
+    if (counters.find(str_counter) == counters.end()) {
+      throw std::runtime_error("Error: end -> counter '" + str_counter +
+                               "' not initialized");
+    }
     res.emplace(str_counter, counters.at(str_counter).getValue());
   }
   return res;

@@ -16,6 +16,8 @@ static std::unordered_map<std::string, PerfCounter> counters;
 } // namespace
 
 void initalize();
+void initalize(const HARDWARE_EVENT_TYPE hw_events);
+void initalize(const SOFTWARE_EVENT_TYPE sw_events);
 void initalize(const std::vector<HARDWARE_EVENT_TYPE> &hw_events);
 void initalize(const std::vector<SOFTWARE_EVENT_TYPE> &sw_events);
 void initalize(const std::vector<HARDWARE_EVENT_TYPE> &hw_events,
