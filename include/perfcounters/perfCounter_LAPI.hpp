@@ -26,7 +26,7 @@ enum SOFTWARE_EVENT_TYPE {
   CPU_MIGRATIONS = PERF_COUNT_SW_CPU_MIGRATIONS,
 };
 
-class PerfCounter {
+class PerfCounters {
 private:
   struct perf_event_attr attr;
   uint64_t val_begin = 0;
@@ -36,20 +36,20 @@ private:
   bool counting;
 
 public:
-  PerfCounter() = delete;
+  PerfCounters() = delete;
 
-  PerfCounter(const struct perf_event_attr &attr);
+  PerfCounters(const struct perf_event_attr &attr);
 
-  PerfCounter(const struct perf_event_attr &&attr);
+  PerfCounters(const struct perf_event_attr &&attr);
 
-  PerfCounter(const unsigned int type, const unsigned long long config,
-              const unsigned long long disabled);
+  PerfCounters(const unsigned int type, const unsigned long long config,
+               const unsigned long long disabled);
 
-  PerfCounter(const HARDWARE_EVENT_TYPE type);
+  PerfCounters(const HARDWARE_EVENT_TYPE type);
 
-  PerfCounter(const SOFTWARE_EVENT_TYPE type);
+  PerfCounters(const SOFTWARE_EVENT_TYPE type);
 
-  ~PerfCounter();
+  ~PerfCounters();
 
   void open(const pid_t pid, const int cpu, const int grp,
             const unsigned long flags);
