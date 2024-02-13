@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.27)
+cmake_minimum_required(VERSION 3.22)
 
 project(
   perfcounters
@@ -46,3 +46,6 @@ install(
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/perfcountersConfigVersion.cmake
               ${CMAKE_CURRENT_SOURCE_DIR}/cmake/perfcountersConfig.cmake
         DESTINATION lib/cmake/perfcounters)
+
+add_executable(main main.cpp)
+target_link_libraries(main perfcounters)
