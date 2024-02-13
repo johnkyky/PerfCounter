@@ -54,6 +54,8 @@ public:
   void open(const pid_t pid, const int cpu, const int grp,
             const unsigned long flags);
 
+  void open(const pid_t pid);
+
   void open();
 
   void start();

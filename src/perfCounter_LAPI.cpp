@@ -55,6 +55,8 @@ void PerfCounter::open(const pid_t pid, const int cpu, const int grp,
     throw std::runtime_error("Error: PerfData::open -> open counter error");
 }
 
+void PerfCounter::open(const pid_t pid) { this->open(pid, -1, -1, 0); }
+
 void PerfCounter::open() { this->open(getpid(), -1, -1, 0); }
 
 void PerfCounter::start() {
