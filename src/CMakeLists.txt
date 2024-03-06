@@ -2,7 +2,7 @@ set(HEADERS "${INCLUDE_DIR}/perfCounter_LAPI.hpp"
             "${INCLUDE_DIR}/perfCounters_HAPI.hpp")
 
 add_library(perfcounters STATIC perfCounter_LAPI.cpp perfCounters_HAPI.cpp)
-target_compile_compile(perfcounters PUBLIC -fPIC)
+target_compile_options(perfcounters PUBLIC -fPIC)
 target_include_directories(
   perfcounters PUBLIC $<BUILD_INTERFACE:${INCLUDE_DIR}>
                       $<INSTALL_INTERFACE:include/perfcounters>)
